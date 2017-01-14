@@ -1,6 +1,6 @@
 # and-or-not
 
-_NOTE: Tests are missing_
+_NOTE: Code is currently untested!_
 
 #### Example
 
