@@ -1,7 +1,5 @@
 # and-or-not
 
-_NOTE: Build is not ready for npm module_
-
 _NOTE: Tests are missing_
 
 #### Example
@@ -10,32 +8,22 @@ The following prints all the numbers between 1 and 50 that are divisible by 2, a
 
 ```javascript
 
-import { and, or, not } from 'and-or-not';
+import aon from 'and-or-not';
 
-// individual predicates
+const data = ['||', ['greaterThan', 'value', 80], 
+                    ['greaterThan', 'value', 60]];
 
-const isEven = x => x % 2 === 0;
-const isTriple = x => x % 3 === 0;
-const isQuadrupal = x => x % 4 === 0;
-const isLessThanTwenty = x => x < 20;
+const interpreter = {
+  greaterThan(model, key, value) {
+    return model[key] > value;
+  },
+  lessThan(model, key, value) {
+    return model[key] < value;
+  }
+}
 
-// combine predicates with logic
-// they can nest however you want
-
-const predicate = and(isEven,
-                      not(isLessThanTwenty),
-                      or(isTriple, 
-                         isQuadrupal));
-
-// The range of numbers from 1 to 50
-
-const range = Array.from(Array(50).keys()).map(v => v + 1);
-
-// Pass the predicate to filter()
-
-const filtered = range.filter(predicate);
-
-// filtered = [ 20, 24, 28, 30, 32, 36, 40, 42, 44, 48 ]
-
+const model = { value: 70 };
+const predicate = aon(data, interpreter);
+const bool = predicate(model);
 
 ```
