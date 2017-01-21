@@ -1,4 +1,4 @@
-export const $_ = (predicates) => model => {
+export const $_ = predicates => model => {
   for (let key in predicates) {
     if (predicates.hasOwnProperty(key)) {
       if (!predicates[key](model[key])) return false;
